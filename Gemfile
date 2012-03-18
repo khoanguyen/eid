@@ -10,6 +10,9 @@ gem 'sinatra-flash', :require => 'sinatra/flash'
 gem 'activesupport'
 
 # Component requirements
+gem 'rabl'
+gem 'mongodb'
+gem 'bson_ext'
 
 # Test requirements
 gem 'rspec', :group => "test"
