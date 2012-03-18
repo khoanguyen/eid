@@ -13,6 +13,7 @@ gem 'activesupport'
 gem 'rabl'
 gem 'mongodb'
 gem 'bson_ext'
+gem 'uuid'
 
 # Test requirements
 gem 'rspec', :group => "test"
