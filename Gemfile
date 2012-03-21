@@ -11,12 +11,13 @@ gem 'activesupport'
 
 # Component requirements
 gem 'rabl'
-gem 'mongodb'
+gem 'mongo_mapper'
 gem 'bson_ext'
 gem 'uuid'
 
 # Test requirements
 gem 'rspec', :group => "test"
+gem 'factory_girl', :group => "test"
 gem 'rack-test', :require => "rack/test", :group => "test"
 
 # Padrino Stable Gem
