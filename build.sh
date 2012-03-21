@@ -1,1 +1,1 @@
-padrino rake spec
+bundle exec padrino rake spec
