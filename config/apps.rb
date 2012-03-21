@@ -28,6 +28,8 @@
 
 require 'active_support/all'
 
+TOKEN_TIMEOUT = 10.minutes
+
 Dir.glob File.join(Padrino.root, 'lib/**/*.rb') do |file|
   require file
 end
@@ -38,4 +40,5 @@ Padrino.configure_apps do
 end
 
 # Mounts the core application for this project
-Padrino.mount("Eid").to('/')
+Padrino.mount("Eid", :app_file => File.join(PADRINO_ROOT, 'applications/app/app.rb')).to('/')
+Padrino.mount("Auth", :app_file => File.join(PADRINO_ROOT, 'applications/auth/app.rb')).to("/auth")

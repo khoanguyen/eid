@@ -1,1 +1,1 @@
-echo 'Build it :)'
+padrino rake spec

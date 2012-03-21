@@ -1,3 +1,7 @@
+def sha1_digest(str, salt = '')
+  Digest::SHA1.hexdigest("#{str}_#{salt}")
+end
+
 def protect_from_anonymous(protect_from)
   condition do
     halt 403 unless params[:token]
