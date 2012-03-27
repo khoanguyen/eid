@@ -10,7 +10,7 @@ class UserToken
   
   def self.create_admin_token(admin)
     result = UserToken.new(:type => Credential::SA_ACCOUNT, :account_id => admin._id)
-    result._id = UUID.generate
+    result._id = SecureRandom.uuid                                                                                                                                                             
     result.update_token
     result.save!
     result

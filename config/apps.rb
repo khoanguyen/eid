@@ -26,8 +26,6 @@
 # override these settings in the subapps as needed.
 # 
 
-require 'active_support/all'
-
 TOKEN_TIMEOUT = 10.minutes
 
 Dir.glob File.join(Padrino.root, 'lib/**/*.rb') do |file|

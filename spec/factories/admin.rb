@@ -1,5 +1,5 @@
 FactoryGirl.define do
   factory :admin do
-    _id { UUID::generate }
+    _id { SecureRandom.uuid }
   end
 end
