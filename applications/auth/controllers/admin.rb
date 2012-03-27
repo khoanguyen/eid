@@ -19,5 +19,10 @@ Auth.controllers :admin do
       render 'error'
     end
   end
+  
+  delete :index do
+    token = request.env['HTTP_TOKEN']
+    halt 403 unless token 
+  end
 
 end

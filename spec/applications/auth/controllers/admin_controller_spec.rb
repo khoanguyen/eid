@@ -23,7 +23,7 @@ describe "AdminController" do
         body['error_message'].should == "Invalid username/password"
   end
   
-  it 'should success with valid credential' do
+  it 'should return success login with valid credential' do
     post '/auth/admin', {:username => "admin", :password => "test"}
     last_response.status.should be(200)
     body = JSON.parse(last_response.body)
@@ -36,5 +36,12 @@ describe "AdminController" do
     token.type.should == "SA"
     (Time.now < token.expired_on).should be_true
   end
+  
+  it 'should say "Access Denied " when user access signout service without valid user-token' do
+    delete '/auth/admin'
+    last_response.status.should be(403)
+  end
+  
+  it 'should sign the user out with a valid user-token'  
   
 end

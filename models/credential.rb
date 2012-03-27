@@ -1,7 +1,7 @@
 class Credential
   
-  SA_ACCOUNT = 'SA'
-  USER_ACCOUNT = 'USER'
+  SA_ACCOUNT = 'sa'
+  USER_ACCOUNT = 'user'
   
   include MongoMapper::Document
   connection SECDB_CONNECTION
@@ -31,6 +31,7 @@ class Credential
   
   def admin_account
     assoc_account = first_account(SA_ACCOUNT)
+    return nil unless assoc_account
     admin_account = Admin.find(assoc_account["account_id"])
     admin_account.display_name ||= self.user_name
     admin_account
