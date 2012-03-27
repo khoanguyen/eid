@@ -40,6 +40,6 @@ class Credential
   private 
   
   def first_account(type)
-    self.accounts.select { |i| i["account_type"] == "SA" }[0]
+    self.accounts.select { |i| i["account_type"] == SA_ACCOUNT }[0]
   end
 end
