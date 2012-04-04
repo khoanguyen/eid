@@ -47,7 +47,7 @@ describe "AdminController" do
     end
     
     it 'should sign the user out with a valid user-token' do
-      delete '/auth/admin', { HTTP_TOKEN: self.token._id }
+      delete '/auth/admin', {} , { 'HTTP_TOKEN' => self.token._id }
       last_response.status.should be(200)
       body = JSON.parse(last_response.body)
       body['ok'].should == true
