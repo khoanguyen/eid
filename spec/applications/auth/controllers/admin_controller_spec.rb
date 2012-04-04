@@ -15,8 +15,7 @@ describe "AdminController" do
   end
   
   let!(:token) do
-    create :admin_token,
-      :account_id => self.admin._id
+    UserToken.create_admin_token self.admin
   end
   
   it 'should return fail login with invalid credential' do

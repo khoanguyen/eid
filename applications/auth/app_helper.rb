@@ -6,7 +6,7 @@ module AppHelper
   def validate_token(expected_type = Credential::USER_ACCOUNT)
     if request['HTTP_TOKEN'].present?
       token = current_token
-      if token && token.type == expected_type
+      if token && !token.expired? && token.type == expected_type
         token.update_token 
         return true
       end
