@@ -1,6 +1,7 @@
 Auth.controllers :admin do
   
-  ## Login
+  # Singin an user
+  # Create a new UserToken on token cache and return the token id
   post :index do
     username = params[:username]
     password = params[:password]
@@ -20,9 +21,11 @@ Auth.controllers :admin do
     end
   end
   
-  delete :index do
-    token = request.env['HTTP_TOKEN']
-    halt 403 unless token 
+  # Signout an user
+  # Delete the UserToken from token cache
+  delete :index, :protect => :require_admin do
+    current_token.delete
+    render 'admin/signout'
   end
 
 end

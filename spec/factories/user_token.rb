@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :user_token do
-    _id { SecureRandom.uuid }
+    _id { UserToken.generate_token_id }
   end
   
   factory :admin_token, :parent => :user_token do

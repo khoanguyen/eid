@@ -10,14 +10,19 @@ class UserToken
   
   def self.create_admin_token(admin)
     result = UserToken.new(:type => Credential::SA_ACCOUNT, :account_id => admin._id)
-    result._id = SecureRandom.uuid                                                                                                                                                             
-    result.update_token
+    result._id = UserToken.generate_token_id                                                                                                                                                             
+    result.expired_on = Time.now + TOKEN_TIMEOUT
     result.save!
     result
   end
   
+  def self.generate_token_id
+    SecureRandom.uuid
+  end
+  
   def update_token
-    self.expired_on = Time.now + TOKEN_TIMEOUT
+    self.expired_on = Time.now + TOKEN_TIMEOUT unless expired?
+    self.save!
   end
   
   def expired?

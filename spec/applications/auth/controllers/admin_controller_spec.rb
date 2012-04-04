@@ -14,6 +14,11 @@ describe "AdminController" do
         ] 
   end
   
+  let!(:token) do
+    create :admin_token,
+      :account_id => self.admin._id
+  end
+  
   it 'should return fail login with invalid credential' do
     post '/auth/admin', {:username => "smith", :password => "test"}
     last_response.status.should be(200)
@@ -36,12 +41,19 @@ describe "AdminController" do
     token.type.should == Credential::SA_ACCOUNT
     (Time.now < token.expired_on).should be_true
   end
-    # 
-    # it 'should say "Access Denied " when user access signout service without valid user-token' do
-    #   delete '/auth/admin'
-    #   last_response.status.should be(403)
-    # end
-    # 
-    # it 'should sign the user out with a valid user-token'  
+    
+    it 'should say "Access Denied " when user access signout service without valid user-token' do
+      delete '/auth/admin'
+      last_response.status.should be(403)
+    end
+    
+    it 'should sign the user out with a valid user-token' do
+      delete '/auth/admin', { HTTP_TOKEN: self.token._id }
+      last_response.status.should be(200)
+      body = JSON.parse(last_response.body)
+      body['ok'].should == true
+      token = UserToken.find(self.token._id)
+      token.should be_nil
+    end 
   
 end

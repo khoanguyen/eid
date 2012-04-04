@@ -1,12 +1,23 @@
+require_relative 'app_helper'
+
 class Auth < Padrino::Application
   register Padrino::Rendering
   register Padrino::Mailer
   register Padrino::Helpers
+  
+  helpers AppHelper
 
   # enable :sessions
   
   before do
     content_type :json
+  end
+  
+  
+  def self.protect(*args)
+    condition do
+      halt 403 unless validate_token(Credential::SA_ACCOUNT)
+    end if args.include?(:require_admin)
   end
 
   ##
