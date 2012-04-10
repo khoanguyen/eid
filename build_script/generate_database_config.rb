@@ -1,19 +1,21 @@
 #!/usr/bin/env ruby
 
+sub_fix = ARGV[0] == 'test' ? '_test' : '_dev'
+
 app_config = %q{
 session_timeout: 600
 }
 
-database_config = %q{
+database_config = %Q{
 eid_security:
   host: localhost
   port: 27017
-  database: eid_security_dev
+  database: eid_security#{sub_fix}
 
 eid_data:
   host: localhost
   port: 27017
-  database: eid_data_dev
+  database: eid_data#{sub_fix}
 }
 
 memcached_config = %q{

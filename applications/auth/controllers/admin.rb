@@ -17,7 +17,7 @@ Auth.controllers :admin do
         }
         r result
       else
-        fail ADMIN_FAILED_SIGNIN, "Invalid username/password"
+        fail AUTHENTICATION_ERROR, "Invalid username/password"
       end
     rescue Exception => e
       fail UNKNOWN_ERROR, e.message
