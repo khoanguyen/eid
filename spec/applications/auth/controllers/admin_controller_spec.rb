@@ -19,7 +19,7 @@ describe "AdminController" do
     last_response.status.should be(200)
         body = JSON.parse(last_response.body)
         body['ok'].should == false
-        body['error_code'].should be(AUTHENTICATION_ERROR)
+        body['error_code'].should == AUTHENTICATION_ERROR
         body['error_message'].should == "Invalid username/password"
   end
   
