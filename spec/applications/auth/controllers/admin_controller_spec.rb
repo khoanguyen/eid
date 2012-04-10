@@ -14,10 +14,6 @@ describe "AdminController" do
         ] 
   end
   
-  let!(:token) do
-    UserToken.create_admin_token self.admin
-  end
-  
   it 'should return fail login with invalid credential' do
     post '/auth/admin', {:username => "smith", :password => "test"}
     last_response.status.should be(200)
@@ -32,27 +28,34 @@ describe "AdminController" do
     last_response.status.should be(200)
     body = JSON.parse(last_response.body)
     body['ok'].should == true
-    data = body['data']
-    data['admin_id'].should == self.admin._id
+    data = body['result']
+    data['type'].should == Credential::SA_ACCOUNT
+    data['account_id'].should == self.admin._id
     data['display_name'].should == 'admin'
-    token = UserToken.find(data['token'])
-    token.account_id.should == self.admin._id
-    token.type.should == Credential::SA_ACCOUNT
-    (Time.now < token.expired_on).should be_true
+    
+    session = Session.get(data['token'])
+    session.should_not be_nil
+    session.account_id.should == self.admin._id
+    session.type.should == Credential::SA_ACCOUNT
+    session.display_name.should == 'admin'
+    
+    # Signout
+    delete '/auth/admin', {}, { 'HTTP_TOKEN' => session._id }
   end
     
     it 'should say "Access Denied " when user access signout service without valid user-token' do
+      post '/auth/admin', {:username => "admin", :password => "test"}
       delete '/auth/admin'
       last_response.status.should be(403)
     end
     
     it 'should sign the user out with a valid user-token' do
-      delete '/auth/admin', {} , { 'HTTP_TOKEN' => self.token._id }
+      post '/auth/admin', {:username => "admin", :password => "test"}
+      token = JSON::parse(last_response.body)['result']['token'] 
+      delete '/auth/admin', {} , { 'HTTP_TOKEN' => token }
       last_response.status.should be(200)
       body = JSON.parse(last_response.body)
       body['ok'].should == true
-      token = UserToken.find(self.token._id)
-      token.should be_nil
     end 
   
 end

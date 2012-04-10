@@ -1,42 +1,27 @@
 #!/usr/bin/env ruby
 
-config = %q{
-require 'mongo_mapper'
-require 'mongo'
-
-case PADRINO_ENV
-when "test"
-  SEC_DB = {
-    :host => "localhost",
-    :port => 27017,
-    :database => "eid_security_test" 
-  }
-  DATA_DB = {
-    :host => "localhost",
-    :port => 27017,
-    :database => "eid_data_test" 
-  }
-when "production"
-  SEC_DB = {
-    :host => "localhost",
-    :port => 27017,
-    :database => "eid_security_dev" 
-  }
-  DATA_DB = {
-    :host => "localhost",
-    :port => 27017,
-    :database => "eid_data_dev" 
-  }
-end
-
-DATADB_CONNECTION = Mongo::Connection.new(DATA_DB[:host], DATA_DB[:port])
-DATADB_NAME = DATA_DB[:database]
-
-SECDB_CONNECTION = Mongo::Connection.new(SEC_DB[:host], SEC_DB[:port])
-SECDB_NAME = SEC_DB[:database]
-
-MongoMapper.connection = DATADB_CONNECTION
-MongoMapper.database = DATADB_NAME
+app_config = %q{
+session_timeout: 600
 }
 
-File.open(ARGV[0], 'w') { |f| f.write(config) }
+database_config = %q{
+eid_security:
+  host: localhost
+  port: 27017
+  database: eid_security_dev
+
+eid_data:
+  host: localhost
+  port: 27017
+  database: eid_data_dev
+}
+
+memcached_config = %q{
+memcachedA:
+  host: localhost
+  port: 11211
+}
+
+File.open("config/#{ARGV[0]}/app.yml", 'w') { |f| f.write(app_config) }
+File.open("config/#{ARGV[0]}/database.yml", 'w') { |f| f.write(database_config) }
+File.open("config/#{ARGV[0]}/memcached.yml", 'w') { |f| f.write(memcached_config) }

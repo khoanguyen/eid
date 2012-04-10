@@ -10,7 +10,6 @@ RSpec.configure do |config|
   config.after(:each) do
     Admin.delete_all
     Credential.delete_all
-    UserToken.delete_all
   end
 end
 

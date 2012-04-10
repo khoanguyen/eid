@@ -1,0 +1,3 @@
+memcachedA:
+  host: localhost
+  port: 11211

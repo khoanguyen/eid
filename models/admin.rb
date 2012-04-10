@@ -8,9 +8,11 @@ class Admin
   key :account_type, String
   
   def signin
-    old_tokens = UserToken.all :account_id => self._id
-    old_tokens.each { |token| token.delete if token.expired? }
-    UserToken.create_admin_token(self)
+    session = Session.new(:account_id   => self._id, 
+                          :type         => Credential::SA_ACCOUNT, 
+                          :display_name => self.display_name)
+    session.store
+    session
   end
   
 end

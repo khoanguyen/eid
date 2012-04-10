@@ -9,9 +9,10 @@ gem 'rake'
 gem 'sinatra-flash', :require => 'sinatra/flash'
 
 # Component requirements
-gem 'rabl'
 gem 'mongo_mapper'
 gem 'bson_ext'
+gem 'activemodel', :require => 'active_model'
+gem 'memcache-client', :require => 'memcache'
 
 # Test requirements
 gem 'rspec', :group => "test"

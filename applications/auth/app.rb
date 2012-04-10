@@ -16,7 +16,7 @@ class Auth < Padrino::Application
   
   def self.protect(*args)
     condition do
-      halt 403 unless validate_token(Credential::SA_ACCOUNT)
+      halt 403 unless validate_session(Credential::SA_ACCOUNT)
     end if args.include?(:require_admin)
   end
 

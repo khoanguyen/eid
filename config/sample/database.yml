@@ -1,0 +1,9 @@
+eid_security:
+  host: localhost
+  port: 27017
+  database: eid_security_dev
+  
+eid_data:
+  host: localhost
+  port: 27017
+  database: eid_data_dev

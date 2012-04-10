@@ -7,6 +7,11 @@ require 'rubygems' unless defined?(Gem)
 require 'bundler/setup'
 Bundler.require(:default, PADRINO_ENV)
 
+# Load libs
+Dir.glob File.join(Padrino.root, 'lib/**/*.rb') do |file|
+  require file
+end
+
 ##
 # Enable devel logging
 #
@@ -18,13 +23,14 @@ Bundler.require(:default, PADRINO_ENV)
 # Add your before load hooks here
 #
 Padrino.before_load do
+  
 end
 
 ##
 # Add your after load hooks here
 #
 Padrino.after_load do
-  Rabl.register!
+  # Rabl.register!
 end
 
 Padrino.load!

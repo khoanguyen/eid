@@ -26,16 +26,18 @@
 # override these settings in the subapps as needed.
 # 
 
-TOKEN_TIMEOUT = 10.minutes
-
-Dir.glob File.join(Padrino.root, 'lib/**/*.rb') do |file|
-  require file
+load_config('app.yml').tap do |config|
+  SESSION_TIMEOUT = config['session_timeout']
 end
+
+require_relative 'memcached'
 
 Padrino.configure_apps do
   # enable :sessions
   set :session_secret, '3ffbc3ff6bbe4c3293f083422ae752f29753b507f9a74d12194dbff3299d8520'
 end
+
+require File.join(Padrino.root, 'applications', 'helpers')
 
 # Mounts the core application for this project
 Padrino.mount("Eid", :app_file => File.join(PADRINO_ROOT, 'applications/app/app.rb')).to('/')
