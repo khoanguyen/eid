@@ -22,6 +22,8 @@ memcachedA:
   port: 11211
 }
 
+Dir.mkdir "config/#{ARGV[0]}" unless Dir.exist? "config/#{ARGV[0]}"
+
 File.open("config/#{ARGV[0]}/app.yml", 'w') { |f| f.write(app_config) }
 File.open("config/#{ARGV[0]}/database.yml", 'w') { |f| f.write(database_config) }
 File.open("config/#{ARGV[0]}/memcached.yml", 'w') { |f| f.write(memcached_config) }
