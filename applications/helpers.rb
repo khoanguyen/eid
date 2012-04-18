@@ -14,10 +14,10 @@ def current_session
   Session.get request.env['HTTP_TOKEN']
 end
 
-def validate_session(expected_type = Credential::USER_ACCOUNT)
+def validate_session(expected_type = Credential::ANY_ACCOUNT)
   if request.env['HTTP_TOKEN'].present?
     session = current_session
-    if session && session.type == expected_type
+    if session && ((session.type == expected_type) || (expected_type == Credential::ANY_ACCOUNT))
       session.store 
       return true
     end
@@ -35,4 +35,18 @@ def current_user
   else 
     nil
   end
+end
+
+def sanatize_model(model, *white_list)
+  result = {}
+  if model.respond_to? :attributes
+    result = model.attributes.reject do |k,v| 
+      !white_list.include?(k.to_sym)   
+    end
+  end
+  result
+end
+
+def sanatize_set(model_set, *white_list)
+  result = model_set.map { |model| sanatize_model(model,*white_list) }
 end

@@ -38,7 +38,9 @@ Padrino.configure_apps do
 end
 
 require File.join(Padrino.root, 'applications', 'helpers')
+require File.join(Padrino.root, 'applications', 'protectors')
 
 # Mounts the core application for this project
-Padrino.mount("Eid", :app_file => File.join(PADRINO_ROOT, 'applications/app/app.rb')).to('/')
+Padrino.mount("Eid", :app_file => File.join(PADRINO_ROOT, 'applications/app/app.rb')).to('/data')
 Padrino.mount("Auth", :app_file => File.join(PADRINO_ROOT, 'applications/auth/app.rb')).to("/auth")
+Padrino.mount("SysAdmin", :app_file => File.join(PADRINO_ROOT, 'applications/sysadmin/app.rb')).to("/sysadmin")

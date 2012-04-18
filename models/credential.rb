@@ -2,6 +2,7 @@ class Credential
   
   SA_ACCOUNT = 'sa'
   USER_ACCOUNT = 'user'
+  ANY_ACCOUNT = 'any'
   
   include MongoMapper::Document
   connection SECDB_CONNECTION

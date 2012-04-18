@@ -14,11 +14,11 @@ class Auth < Padrino::Application
   end
   
   
-  def self.protect(*args)
-    condition do
-      halt 403 unless validate_session(Credential::SA_ACCOUNT)
-    end if args.include?(:require_admin)
-  end
+  # def self.protect(*args)
+  #     condition do
+  #       halt 403 unless validate_session(Credential::SA_ACCOUNT)
+  #     end if args.include?(:require_admin)
+  #   end
 
   ##
   # Caching support

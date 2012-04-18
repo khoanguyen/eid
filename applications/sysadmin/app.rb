@@ -1,9 +1,9 @@
-class Eid < Padrino::Application
+class SysAdmin < Padrino::Application
   register Padrino::Rendering
   register Padrino::Mailer
   register Padrino::Helpers
 
-  disable :sessions
+  enable :sessions
 
   ##
   # Caching support
@@ -56,7 +56,6 @@ class Eid < Padrino::Application
   #     render 'errors/505'
   #   end
   #
-  
 end
 
 require_relative 'protectors'

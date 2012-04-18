@@ -4,9 +4,8 @@ Auth.controllers :admin do
   # Create a new UserToken on token cache and return the token id
   post :index do
     begin
-      username = params[:username]
-      password = params[:password]
-      if credential = Credential.verify(username, password)
+      auth_info = AuthInfo.new params
+      if credential = Credential.verify(auth_info.username, auth_info.password)
         account = credential.admin_account
         session = account.signin
         result = {
